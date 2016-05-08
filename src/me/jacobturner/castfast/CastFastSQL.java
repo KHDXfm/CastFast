@@ -41,6 +41,7 @@ public class CastFastSQL {
 			while ( rs.next() ) {
 				showData.add(rs.getString("name"));
 				showData.add(rs.getString("dj"));
+				showData.add(rs.getString("email"));
 				showData.add(rs.getString("dateandtime"));
 			}
 			rs.close();
