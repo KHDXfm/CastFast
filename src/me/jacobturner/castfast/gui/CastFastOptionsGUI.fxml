@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.jacobturner.castfast.gui.CastFastOptionsController">
+   <center>
+      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Separator />
+            <Label text="Amazon S3 Settings" />
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Access Key" />
+                  <TextField fx:id="accessKey" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Secret Key" />
+                  <TextField fx:id="secretKey" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Bucket Name" />
+                  <TextField fx:id="bucketName" />
+               </children>
+            </HBox>
+            <Separator />
+            <Label text="Mail Settings" />
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="SMTP Server" />
+                  <TextField fx:id="smtpServer" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Port" />
+                  <TextField fx:id="portNumber" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Email Address" />
+                  <TextField fx:id="emailAddress" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Username" />
+                  <TextField fx:id="username" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Password" />
+                  <PasswordField fx:id="password" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <CheckBox fx:id="useSSLTLS" mnemonicParsing="false" text="Use SSL/TLS" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <Label text="Options" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+   </top>
+   <bottom>
+      <Button fx:id="saveButton" mnemonicParsing="false" text="Save" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
