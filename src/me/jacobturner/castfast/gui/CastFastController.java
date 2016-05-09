@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.mail.MessagingException;
 
@@ -38,10 +39,10 @@ public class CastFastController {
 	@FXML
 	private ChoiceBox<String> showSelector;
 
-	CastFastSQL sqlFile = new CastFastSQL();
+	private CastFastSQL sqlFile = new CastFastSQL();
 	private FileChooser fileBrowse = new FileChooser();
 	private String dateChosen = LocalDate.now().toString();
-	private ArrayList<String> showList = new ArrayList<String>(sqlFile.getNames());
+	private ArrayList<String> showList = sqlFile.getNames();
 	private String showSelected;
 	private String currentPath;
 
@@ -58,6 +59,7 @@ public class CastFastController {
 				currentPath = fileToOpen.toString();
 			}
 		});
+		Collections.sort(showList);
 		showSelector.getItems().addAll(showList);
 		showSelector.setOnAction(event -> {
 			showSelected = showSelector.getValue();
