@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.jacobturner.castfast.gui.CastFastController">
+<BorderPane prefHeight="175.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.jacobturner.castfast.gui.CastFastController">
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Select Show: " />
                   <ChoiceBox fx:id="showSelector" prefWidth="150.0" />
@@ -20,7 +20,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Select Date: " />
                   <DatePicker fx:id="dateSelector" />
@@ -29,7 +29,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Select File:" />
                   <TextField />
@@ -40,6 +40,9 @@
                </padding>
             </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets left="5.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
    <top>
@@ -64,6 +67,9 @@
             </Button>
             <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
          </children>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
       </HBox>
    </bottom>
 </BorderPane>

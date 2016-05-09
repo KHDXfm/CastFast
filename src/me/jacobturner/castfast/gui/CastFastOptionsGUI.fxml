@@ -93,6 +93,9 @@
                </VBox.margin>
             </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
    <top>
@@ -103,6 +106,9 @@
       </Label>
    </top>
    <bottom>
-      <Button fx:id="saveButton" mnemonicParsing="false" text="Save" BorderPane.alignment="CENTER" />
+      <Button fx:id="saveButton" mnemonicParsing="false" text="Save" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin></Button>
    </bottom>
 </BorderPane>

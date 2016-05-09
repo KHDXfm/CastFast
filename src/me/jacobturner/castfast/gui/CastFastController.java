@@ -1,8 +1,11 @@
 package me.jacobturner.castfast.gui;
 
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.mail.MessagingException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import me.jacobturner.castfast.CastFastEmail;
 import me.jacobturner.castfast.CastFastFile;
 import me.jacobturner.castfast.CastFastMP3;
 import me.jacobturner.castfast.CastFastS3;
@@ -82,6 +86,11 @@ public class CastFastController {
 	public void uploadProcess() {
 		ArrayList<String> showData = sqlFile.getShow(showSelected);
 		String newFile = CastFastMP3.updateFile(currentPath, dateChosen, showData);
-		CastFastS3.uploadFile(showData, newFile, showSelected);
+		URL uploadedFile = CastFastS3.uploadFile(showData, newFile, showSelected);
+		try {
+			CastFastEmail.sendEmail(showData.get(2), "Show successfully uploaded", uploadedFile.toString());
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 }
