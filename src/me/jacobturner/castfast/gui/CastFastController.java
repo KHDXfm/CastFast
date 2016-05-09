@@ -31,6 +31,8 @@ public class CastFastController {
 	@FXML
 	private Button optionsButton;
 	@FXML
+	private Button showsButton;
+	@FXML
 	private Button exitButton;
 	@FXML
 	private Button browseButton;
@@ -77,6 +79,20 @@ public class CastFastController {
 				e.printStackTrace();
 			}
 		});
+		showsButton.setOnAction(event -> {
+			sqlFile.close();
+			try {
+				Stage dialog = new Stage();
+	            dialog.initModality(Modality.APPLICATION_MODAL);
+	            dialog.initOwner(optionsButton.getScene().getWindow());
+				BorderPane aboutWindow = (BorderPane)FXMLLoader.load(getClass().getResource("CastFastShowsGUI.fxml"));
+				Scene scene = new Scene(aboutWindow);
+				dialog.setScene(scene);
+				dialog.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		});
 		exitButton.setOnAction(event -> {
 			sqlFile.close();
 			Platform.exit();
@@ -86,6 +102,11 @@ public class CastFastController {
 
 	@FXML
 	public void uploadProcess() {
+		try {
+			sqlFile.close();
+		} finally {
+			sqlFile = new CastFastSQL();
+		}
 		ArrayList<String> showData = sqlFile.getShow(showSelected);
 		String newFile = CastFastMP3.updateFile(currentPath, dateChosen, showData);
 		URL uploadedFile = CastFastS3.uploadFile(showData, newFile, showSelected);

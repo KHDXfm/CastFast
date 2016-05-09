@@ -65,6 +65,11 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="showsButton" mnemonicParsing="false" text="Shows">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
             <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
          </children>
          <padding>

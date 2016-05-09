@@ -21,12 +21,24 @@ public class CastFastSQL {
 		ArrayList<String> showNames = new ArrayList<String>();
 		try {
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery( "SELECT * FROM SHOWS;" );
-			while ( rs.next() ) {
-				String name = rs.getString("name");
-				showNames.add(name);
+			try {
+				ResultSet rs = stmt.executeQuery( "SELECT * FROM SHOWS;" );
+				while ( rs.next() ) {
+					String name = rs.getString("name");
+					showNames.add(name);
+				}
+				rs.close();
+				stmt.close();
+			} catch (SQLException e) {
+				String sql = "CREATE TABLE shows (" +
+						"ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+						" name TEXT NOT NULL," +
+						" dj TEXT NOT NULL," +
+						" email TEXT NOT NULL," +
+						" dateandtime TEXT NOT NULL)";
+				stmt.executeUpdate(sql);
+				stmt.close();
 			}
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -50,6 +62,52 @@ public class CastFastSQL {
 		}
 		return showData;
 	}
+	
+	public void addShow(String showName, String djs, String djEmail, String dateAndTime) {
+		try {
+			stmt = c.createStatement();
+			int newID = 0;
+			ResultSet rs = stmt.executeQuery( "SELECT * FROM shows;" );
+			while ( rs.next() ) {
+				newID++;
+			}
+			rs.close();
+			stmt = c.createStatement();
+			String sql = "INSERT INTO shows (ID,name,djs,email,dateandtime) " +
+	                     "VALUES (" + newID + ", '" + showName + "', +" + djs + ", '" + djEmail + "', " + dateAndTime + " );";
+			stmt.executeUpdate(sql);
+			stmt.close();
+		    c.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateShow(String showName, String djs, String djEmail, String dateAndTime) {
+		try {
+			int showID = 0;
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery( "SELECT * FROM shows WHERE name IN ('" + showName + "');" );
+			while ( rs.next() ) {
+				showID = rs.getInt("ID");
+			}
+			rs.close();
+			stmt = c.createStatement();
+		    String sql = "UPDATE shows set name = " + showName + " where ID=" + Integer.toString(showID) + ";";
+		    stmt.executeUpdate(sql);
+		    sql = "UPDATE shows set dj = " + djs + " where ID=" + Integer.toString(showID) + ";";
+		    stmt.executeUpdate(sql);
+		    sql = "UPDATE shows set email = "+djEmail+" where ID="+Integer.toString(showID)+";";
+		    stmt.executeUpdate(sql);
+		    sql = "UPDATE shows set dateandtime = " + dateAndTime + " where ID=" + Integer.toString(showID) + ";";
+		    stmt.executeUpdate(sql);
+			stmt.close();
+		    c.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void close() {
 	    try {
