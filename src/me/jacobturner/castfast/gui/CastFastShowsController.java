@@ -40,7 +40,7 @@ public class CastFastShowsController {
 		showSelector.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
 			public void changed(ObservableValue<? extends Number> ov, Number old_toggle, Number new_toggle) {
 				String selectedShow = showSelector.getSelectionModel().getSelectedItem();
-				if (selectedShow.equals("<new show>")) {
+				if (selectedShow == null) {
 					showName.setText("");
 					djs.setText("");
 					djEmail.setText("");
@@ -72,10 +72,13 @@ public class CastFastShowsController {
 	@FXML
 	public void addShow() {
 		sqlFile.addShow(showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
+		showSelector.getItems().add(showName.getText());
 	}
 	
 	@FXML
 	public void updateShow() {
+		showSelector.getItems().remove(showSelector.getSelectionModel().getSelectedItem());
 		sqlFile.updateShow(showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
+		showSelector.getItems().add(showName.getText());
 	}
 }

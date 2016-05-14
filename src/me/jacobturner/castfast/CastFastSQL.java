@@ -73,11 +73,10 @@ public class CastFastSQL {
 			}
 			rs.close();
 			stmt = c.createStatement();
-			String sql = "INSERT INTO shows (ID,name,djs,email,dateandtime) " +
-	                     "VALUES (" + newID + ", '" + showName + "', +" + djs + ", '" + djEmail + "', " + dateAndTime + " );";
+			String sql = "INSERT INTO shows (ID,name,dj,email,dateandtime) " +
+	                     "VALUES (" + newID + ", '" + showName + "', + '" + djs + "', '" + djEmail + "', '" + dateAndTime + "' );";
 			stmt.executeUpdate(sql);
 			stmt.close();
-		    c.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,16 +92,15 @@ public class CastFastSQL {
 			}
 			rs.close();
 			stmt = c.createStatement();
-		    String sql = "UPDATE shows set name = " + showName + " where ID=" + Integer.toString(showID) + ";";
+		    String sql = "UPDATE shows set name = '" + showName + "' where ID=" + Integer.toString(showID) + ";";
 		    stmt.executeUpdate(sql);
-		    sql = "UPDATE shows set dj = " + djs + " where ID=" + Integer.toString(showID) + ";";
+		    sql = "UPDATE shows set dj = '" + djs + "' where ID=" + Integer.toString(showID) + ";";
 		    stmt.executeUpdate(sql);
-		    sql = "UPDATE shows set email = "+djEmail+" where ID="+Integer.toString(showID)+";";
+		    sql = "UPDATE shows set email = '" + djEmail + "' where ID="+Integer.toString(showID)+";";
 		    stmt.executeUpdate(sql);
-		    sql = "UPDATE shows set dateandtime = " + dateAndTime + " where ID=" + Integer.toString(showID) + ";";
+		    sql = "UPDATE shows set dateandtime = '" + dateAndTime + "' where ID=" + Integer.toString(showID) + ";";
 		    stmt.executeUpdate(sql);
 			stmt.close();
-		    c.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

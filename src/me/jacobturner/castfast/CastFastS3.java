@@ -15,9 +15,9 @@ public class CastFastS3 {
 		AmazonS3Client s3client = new AmazonS3Client(s3Credentials);
 		try {
 			File file = new File(uploadFileName);
-			s3client.putObject(new PutObjectRequest(s3Credentials.getBucket(), show.replace(" ", "-"), file));
 			String fileString = file.toString().split("/")[2];
-			return s3client.getUrl(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString);
+			s3client.putObject(new PutObjectRequest(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString + ".mp3", file));
+			return s3client.getUrl(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString + ".mp3");
 		} catch (AmazonServiceException ase) {
 			System.out.println("AmazonServiceException:");
 			System.out.println("Error Message:    " + ase.getMessage());

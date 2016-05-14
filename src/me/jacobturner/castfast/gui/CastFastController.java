@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -33,6 +34,8 @@ public class CastFastController {
 	@FXML
 	private Button showsButton;
 	@FXML
+	private Button refreshButton;
+	@FXML
 	private Button exitButton;
 	@FXML
 	private Button browseButton;
@@ -40,6 +43,8 @@ public class CastFastController {
 	private DatePicker dateSelector;
 	@FXML
 	private ChoiceBox<String> showSelector;
+	@FXML
+	private TextField filePath;
 
 	private CastFastSQL sqlFile = new CastFastSQL();
 	private FileChooser fileBrowse = new FileChooser();
@@ -59,6 +64,7 @@ public class CastFastController {
 			File fileToOpen = fileBrowse.showOpenDialog(browseButton.getScene().getWindow());
 			if (fileToOpen != null) {
 				currentPath = fileToOpen.toString();
+				filePath.setText(currentPath);
 			}
 		});
 		Collections.sort(showList);
@@ -115,5 +121,18 @@ public class CastFastController {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void refresh() {
+		try {
+			sqlFile.close();
+		} finally {
+			sqlFile = new CastFastSQL();
+		}
+		showList = sqlFile.getNames();
+		Collections.sort(showList);
+		showSelector.getItems().clear();
+		showSelector.getItems().addAll(showList);
 	}
 }
