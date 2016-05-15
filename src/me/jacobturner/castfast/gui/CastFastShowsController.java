@@ -37,7 +37,7 @@ public class CastFastShowsController {
 		Collections.sort(showList);
 		showSelector.getItems().add("<new show>");
 		showSelector.getItems().addAll(showList);
-		showSelector.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
+		showSelector.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_toggle, Number new_toggle) {
 				String selectedShow = showSelector.getItems().get((int)new_toggle);
 				if (selectedShow.equals("<new show>")) {
@@ -61,13 +61,15 @@ public class CastFastShowsController {
 		closeButton.setOnAction(event -> {
 			sqlFile.close();
 			try {
-				sqlFile.close();
 				Stage stage = (Stage)closeButton.getScene().getWindow();
 			    stage.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
+		showSelector.getSelectionModel().selectFirst();
+		addButton.setDisable(false);
+		updateButton.setDisable(true);
 	}
 	
 	@FXML
@@ -78,8 +80,9 @@ public class CastFastShowsController {
 	
 	@FXML
 	public void updateShow() {
-		showSelector.getItems().remove(showSelector.getSelectionModel().getSelectedItem());
-		sqlFile.updateShow(showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
+		String oldShow = showSelector.getSelectionModel().getSelectedItem();
+		showSelector.getItems().remove(oldShow);
+		sqlFile.updateShow(oldShow, showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
 		showSelector.getItems().add(showName.getText());
 	}
 }

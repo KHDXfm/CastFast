@@ -82,11 +82,11 @@ public class CastFastSQL {
 		}
 	}
 	
-	public void updateShow(String showName, String djs, String djEmail, String dateAndTime) {
+	public void updateShow(String oldShow, String showName, String djs, String djEmail, String dateAndTime) {
 		try {
 			int showID = 0;
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery( "SELECT * FROM shows WHERE name IN ('" + showName + "');" );
+			ResultSet rs = stmt.executeQuery( "SELECT * FROM shows WHERE name IN ('" + oldShow + "');" );
 			while ( rs.next() ) {
 				showID = rs.getInt("ID");
 			}
