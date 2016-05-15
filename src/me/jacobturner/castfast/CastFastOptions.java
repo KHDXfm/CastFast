@@ -24,8 +24,6 @@ public class CastFastOptions {
 				output.close();
 				input = new FileInputStream("config.properties");
 				prop.load(input);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -44,8 +42,6 @@ public class CastFastOptions {
 			prop.setProperty(key, value);
 			prop.store(output, null);
 			output.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
