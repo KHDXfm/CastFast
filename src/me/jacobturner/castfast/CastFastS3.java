@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class CastFastS3 {
@@ -15,9 +16,10 @@ public class CastFastS3 {
 		AmazonS3Client s3client = new AmazonS3Client(s3Credentials);
 		try {
 			File file = new File(uploadFileName);
-			String fileString = file.toString().split("/")[2];
-			s3client.putObject(new PutObjectRequest(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString + ".mp3", file));
-			return s3client.getUrl(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString + ".mp3");
+			String fileString = file.toString().split("/")[3];
+			s3client.putObject(new PutObjectRequest(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString, file));
+			s3client.setObjectAcl(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString, CannedAccessControlList.PublicRead);
+			return s3client.getUrl(s3Credentials.getBucket(), show.replace(" ", "-") + "/" + fileString);
 		} catch (AmazonServiceException ase) {
 			System.out.println("AmazonServiceException:");
 			System.out.println("Error Message:    " + ase.getMessage());
