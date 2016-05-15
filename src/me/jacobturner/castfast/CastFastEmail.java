@@ -10,7 +10,7 @@ public class CastFastEmail {
 	private static Session getMailSession;
 	private static MimeMessage generateMailMessage;
 	private static CastFastOptions options = new CastFastOptions();
-	
+
 	public static void sendEmail(String toEmail, String subject, String link) throws AddressException, MessagingException {
 		mailServerProperties = System.getProperties();
 		mailServerProperties.put("mail.smtp.port", Integer.parseInt(options.getValue("port")));
@@ -21,7 +21,7 @@ public class CastFastEmail {
 		generateMailMessage.setFrom(options.getValue("email_address"));
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 		generateMailMessage.setSubject(subject);
-		String emailBody = "Your podcast successfully uploaded, and is available at the following link:<br /><a href='" + link +"'>" + link + "</a>";
+		String emailBody = "Your podcast has successfully uploaded and is now available at the following link:<br /><a href='" + link +"'>" + link + "</a>";
 		generateMailMessage.setContent(emailBody, "text/html");
 		Transport transport = getMailSession.getTransport("smtp");
 		transport.connect(options.getValue("smtp_server"), options.getValue("username"), options.getValue("password"));
