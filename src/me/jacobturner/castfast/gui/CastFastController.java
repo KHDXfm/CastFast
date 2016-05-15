@@ -86,7 +86,6 @@ public class CastFastController {
 			}
 		});
 		showsButton.setOnAction(event -> {
-			sqlFile.close();
 			try {
 				Stage dialog = new Stage();
 	            dialog.initModality(Modality.APPLICATION_MODAL);
@@ -108,11 +107,6 @@ public class CastFastController {
 
 	@FXML
 	public void uploadProcess() {
-		try {
-			sqlFile.close();
-		} finally {
-			sqlFile = new CastFastSQL();
-		}
 		ArrayList<String> showData = sqlFile.getShow(showSelected);
 		String newFile = CastFastMP3.updateFile(currentPath, dateChosen, showData);
 		URL uploadedFile = CastFastS3.uploadFile(showData, newFile, showSelected);
@@ -125,14 +119,10 @@ public class CastFastController {
 	
 	@FXML
 	public void refresh() {
-		try {
-			sqlFile.close();
-		} finally {
-			sqlFile = new CastFastSQL();
-		}
 		showList = sqlFile.getNames();
 		Collections.sort(showList);
 		showSelector.getItems().clear();
 		showSelector.getItems().addAll(showList);
+		CastFastFile.checkDir(showList);
 	}
 }

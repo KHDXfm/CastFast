@@ -39,8 +39,8 @@ public class CastFastShowsController {
 		showSelector.getItems().addAll(showList);
 		showSelector.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
 			public void changed(ObservableValue<? extends Number> ov, Number old_toggle, Number new_toggle) {
-				String selectedShow = showSelector.getSelectionModel().getSelectedItem();
-				if (selectedShow == null) {
+				String selectedShow = showSelector.getItems().get((int)new_toggle);
+				if (selectedShow.equals("<new show>")) {
 					showName.setText("");
 					djs.setText("");
 					djEmail.setText("");
@@ -61,6 +61,7 @@ public class CastFastShowsController {
 		closeButton.setOnAction(event -> {
 			sqlFile.close();
 			try {
+				sqlFile.close();
 				Stage stage = (Stage)closeButton.getScene().getWindow();
 			    stage.close();
 			} catch (Exception e) {

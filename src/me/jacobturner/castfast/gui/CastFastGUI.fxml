@@ -70,7 +70,7 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="refreshButton" mnemonicParsing="false" text="Refresh">
+            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" text="Refresh">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
