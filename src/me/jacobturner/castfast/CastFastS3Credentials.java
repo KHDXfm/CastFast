@@ -6,7 +6,6 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import me.jacobturner.castfast.CastFastOptions;
 
 public class CastFastS3Credentials implements AWSCredentialsProvider {
-	
 	@Override
 	public AWSCredentials getCredentials() {
 		CastFastOptions options = new CastFastOptions();
@@ -17,9 +16,7 @@ public class CastFastS3Credentials implements AWSCredentialsProvider {
 	}
 
 	@Override
-	public void refresh() {
-		
-	}
+	public void refresh() {}
 	
 	public String getBucket() {
 		CastFastOptions options = new CastFastOptions();

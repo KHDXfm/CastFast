@@ -39,22 +39,24 @@ public class CastFastShowsController {
 		showSelector.getItems().addAll(showList);
 		showSelector.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_toggle, Number new_toggle) {
-				String selectedShow = showSelector.getItems().get((int)new_toggle);
-				if (selectedShow.equals("<new show>")) {
-					showName.setText("");
-					djs.setText("");
-					djEmail.setText("");
-					dateAndTime.setText("");
-					addButton.setDisable(false);
-					updateButton.setDisable(true);
-				} else {
-					ArrayList<String> selectedShowData = sqlFile.getShow(selectedShow);
-					showName.setText(selectedShowData.get(0));
-					djs.setText(selectedShowData.get(1));
-					djEmail.setText(selectedShowData.get(2));
-					dateAndTime.setText(selectedShowData.get(3));
-					addButton.setDisable(true);
-					updateButton.setDisable(false);
+				if ((int)new_toggle >= 0) {
+					String selectedShow = showSelector.getItems().get((int)new_toggle);
+					if (selectedShow.equals("<new show>")) {
+						showName.setText("");
+						djs.setText("");
+						djEmail.setText("");
+						dateAndTime.setText("");
+						addButton.setDisable(false);
+						updateButton.setDisable(true);
+					} else {
+						ArrayList<String> selectedShowData = sqlFile.getShow(selectedShow);
+						showName.setText(selectedShowData.get(0));
+						djs.setText(selectedShowData.get(1));
+						djEmail.setText(selectedShowData.get(2));
+						dateAndTime.setText(selectedShowData.get(3));
+						addButton.setDisable(true);
+						updateButton.setDisable(false);
+					}
 				}
 			}
 		});
@@ -76,6 +78,7 @@ public class CastFastShowsController {
 	public void addShow() {
 		sqlFile.addShow(showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
 		showSelector.getItems().add(showName.getText());
+		showSelector.getSelectionModel().select(showName.getText());
 	}
 	
 	@FXML
@@ -84,5 +87,6 @@ public class CastFastShowsController {
 		showSelector.getItems().remove(oldShow);
 		sqlFile.updateShow(oldShow, showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
 		showSelector.getItems().add(showName.getText());
+		showSelector.getSelectionModel().select(showName.getText());
 	}
 }

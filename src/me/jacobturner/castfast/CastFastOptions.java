@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 public class CastFastOptions {
-	
 	InputStream input = null;
 	OutputStream output = null;
 	Properties prop = new Properties();
