@@ -62,6 +62,17 @@ public class CastFastSQL {
 		}
 		return showData;
 	}
+
+	public boolean deleteShow(String showName) {
+		try {
+			stmt = c.createStatement();
+			stmt.executeUpdate( "DELETE FROM shows WHERE name IN ('" + showName + "');" );
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	public void addShow(String showName, String djs, String djEmail, String dateAndTime) {
 		try {

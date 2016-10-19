@@ -28,6 +28,8 @@ public class CastFastShowsController {
 	@FXML
 	private Button updateButton;
 	@FXML
+	private Button deleteButton;
+	@FXML
 	private Button closeButton;
 	
 	private CastFastSQL sqlFile = new CastFastSQL();
@@ -48,6 +50,7 @@ public class CastFastShowsController {
 						dateAndTime.setText("");
 						addButton.setDisable(false);
 						updateButton.setDisable(true);
+						deleteButton.setDisable(true);
 					} else {
 						ArrayList<String> selectedShowData = sqlFile.getShow(selectedShow);
 						showName.setText(selectedShowData.get(0));
@@ -56,6 +59,7 @@ public class CastFastShowsController {
 						dateAndTime.setText(selectedShowData.get(3));
 						addButton.setDisable(true);
 						updateButton.setDisable(false);
+						deleteButton.setDisable(false);
 					}
 				}
 			}
@@ -79,6 +83,20 @@ public class CastFastShowsController {
 		sqlFile.addShow(showName.getText(), djs.getText(), djEmail.getText(), dateAndTime.getText());
 		showSelector.getItems().add(showName.getText());
 		showSelector.getSelectionModel().select(showName.getText());
+	}
+	
+	@FXML
+	public void deleteShow() {
+		String tempShowName = showName.getText();
+		sqlFile.deleteShow(tempShowName);
+		showSelector.getItems().remove(tempShowName);
+		showSelector.getSelectionModel().select("<new show>");
+		showName.setText("");
+		djs.setText("");
+		djEmail.setText("");
+		dateAndTime.setText("");
+		addButton.setDisable(false);
+		updateButton.setDisable(true);
 	}
 	
 	@FXML

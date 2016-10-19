@@ -25,7 +25,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Secret Key" />
-                  <TextField fx:id="secretKey" />
+                  <PasswordField fx:id="secretKey" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />

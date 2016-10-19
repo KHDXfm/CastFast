@@ -12,7 +12,7 @@ public class CastFastOptionsController {
 	@FXML
 	private TextField accessKey;
 	@FXML
-	private TextField secretKey;
+	private PasswordField secretKey;
 	@FXML
 	private TextField bucketName;
 	@FXML

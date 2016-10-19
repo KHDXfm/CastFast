@@ -69,6 +69,11 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteShow" text="Delete">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
             <Button fx:id="closeButton" mnemonicParsing="false" text="Close" />
          </children>
          <BorderPane.margin>
