@@ -10,4 +10,5 @@ This project uses the following libraries:
 * [Jackson](http://github.com/FasterXML/jackson), released under the Apache license
 * [mp3agic](http://github.com/mpatric/mp3agic), released under the MIT license
 * [JavaMail](http://java.net/projects/javamail), released under the CDDL+GPL license
+* [Joda-Time](http://joda.org/joda-time), released under the Apache license
 * [SQLite JDBC](http://github.com/xerial/sqlite-jdbc), released under the Apache license
