@@ -49,11 +49,13 @@ public class CastFastController {
 
 	private FileChooser fileBrowse = new FileChooser();
 	private String dateChosen = LocalDate.now().toString();
-	private ArrayList<String> showList = CastFastFile.getShowNames();
+	private ArrayList<String> showList;
 	private String showSelected;
 	private String currentPath;
 
 	public void initialize() {
+		CastFastFile.checkShowsDir();
+		showList = CastFastFile.getShowNames();
 		CastFastFile.checkPodcastDir(showList);
 		dateSelector.setValue(LocalDate.now());
 		dateSelector.setOnAction(event -> {
