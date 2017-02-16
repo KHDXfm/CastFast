@@ -1,5 +1,5 @@
 # CastFast
-**CastFast** is a podcast uploading automator written for [KHDX 93.1](http://khdx.fm). 
+**CastFast** is a podcast uploading automator written for [KHDX-FM 93.1](http://khdx.fm). 
 
 CastFast was coded by [Jacob Turner](http://jacobturner.me), who releases this code under the MIT license.
 
@@ -11,3 +11,4 @@ This project uses the following libraries:
 * [JavaMail](http://java.net/projects/javamail), released under the CDDL+GPL license
 * [Joda-Time](http://joda.org/joda-time), released under the Apache license
 * [mp3agic](http://github.com/mpatric/mp3agic), released under the MIT license
+* [SnakeYAML](http://bitbucket.org/asomov/snakeyaml), released under the Apache license
