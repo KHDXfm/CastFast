@@ -16,7 +16,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Access Key" />
-                  <TextField fx:id="accessKey" />
+                  <TextField fx:id="accessKey" prefWidth="200.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -25,7 +25,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Secret Key" />
-                  <PasswordField fx:id="secretKey" />
+                  <PasswordField fx:id="secretKey" prefWidth="205.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -34,7 +34,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Bucket Name" />
-                  <TextField fx:id="bucketName" />
+                  <TextField fx:id="bucketName" prefWidth="190.0" />
                </children>
             </HBox>
             <Separator />
@@ -42,7 +42,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="SMTP Server" />
-                  <TextField fx:id="smtpServer" />
+                  <TextField fx:id="smtpServer" prefWidth="192.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -51,7 +51,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Port" />
-                  <TextField fx:id="portNumber" />
+                  <TextField fx:id="portNumber" prefWidth="246.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -60,7 +60,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Email Address" />
-                  <TextField fx:id="emailAddress" />
+                  <TextField fx:id="emailAddress" prefWidth="184.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -69,7 +69,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Username" />
-                  <TextField fx:id="username" />
+                  <TextField fx:id="username" prefWidth="210.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -78,7 +78,7 @@
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Label text="Password" />
-                  <PasswordField fx:id="password" />
+                  <PasswordField fx:id="password" prefWidth="213.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />

@@ -14,8 +14,8 @@ public class CastFast extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(Exception error) {
+			error.printStackTrace();
 			System.exit(1);
 		}
 	}

@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.mail.MessagingException;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -24,7 +24,8 @@ import me.jacobturner.castfast.CastFastEmail;
 import me.jacobturner.castfast.CastFastFile;
 import me.jacobturner.castfast.CastFastMP3;
 import me.jacobturner.castfast.CastFastS3;
-import me.jacobturner.castfast.CastFastSQL;
+import me.jacobturner.castfast.CastFastShow;
+import me.jacobturner.castfast.CastFastYAML;
 
 public class CastFastController {
 	@FXML
@@ -46,15 +47,14 @@ public class CastFastController {
 	@FXML
 	private TextField filePath;
 
-	private CastFastSQL sqlFile = new CastFastSQL();
 	private FileChooser fileBrowse = new FileChooser();
 	private String dateChosen = LocalDate.now().toString();
-	private ArrayList<String> showList = sqlFile.getNames();
+	private ArrayList<String> showList = CastFastFile.getShowNames();
 	private String showSelected;
 	private String currentPath;
 
 	public void initialize() {
-		CastFastFile.checkDir(showList);
+		CastFastFile.checkPodcastDir(showList);
 		dateSelector.setValue(LocalDate.now());
 		dateSelector.setOnAction(event -> {
 			dateChosen = dateSelector.getValue().toString().replace("/", "-");
@@ -75,31 +75,32 @@ public class CastFastController {
 		optionsButton.setOnAction(event -> {
 			try {
 				Stage dialog = new Stage();
-	            dialog.initModality(Modality.APPLICATION_MODAL);
-	            dialog.initOwner(optionsButton.getScene().getWindow());
+				dialog.initModality(Modality.APPLICATION_MODAL);
+				dialog.initOwner(optionsButton.getScene().getWindow());
 				BorderPane aboutWindow = (BorderPane)FXMLLoader.load(getClass().getResource("CastFastOptionsGUI.fxml"));
 				Scene scene = new Scene(aboutWindow);
 				dialog.setScene(scene);
 				dialog.show();
-			} catch(Exception e) {
-				e.printStackTrace();
+			} catch(Exception error) {
+				error.printStackTrace();
+				outputMessage(error.getMessage(), AlertType.ERROR);
 			}
 		});
 		showsButton.setOnAction(event -> {
 			try {
 				Stage dialog = new Stage();
-	            dialog.initModality(Modality.APPLICATION_MODAL);
-	            dialog.initOwner(optionsButton.getScene().getWindow());
+				dialog.initModality(Modality.APPLICATION_MODAL);
+				dialog.initOwner(optionsButton.getScene().getWindow());
 				BorderPane aboutWindow = (BorderPane)FXMLLoader.load(getClass().getResource("CastFastShowsGUI.fxml"));
 				Scene scene = new Scene(aboutWindow);
 				dialog.setScene(scene);
 				dialog.show();
-			} catch(Exception e) {
-				e.printStackTrace();
+			} catch(Exception error) {
+				error.printStackTrace();
+				outputMessage(error.getMessage(), AlertType.ERROR);
 			}
 		});
 		exitButton.setOnAction(event -> {
-			sqlFile.close();
 			Platform.exit();
 			System.exit(0);
 		});
@@ -107,22 +108,31 @@ public class CastFastController {
 
 	@FXML
 	public void uploadProcess() {
-		ArrayList<String> showData = sqlFile.getShow(showSelected);
-		String newFile = CastFastMP3.updateFile(currentPath, dateChosen, showData);
-		URL uploadedFile = CastFastS3.uploadFile(showData, newFile, showSelected);
 		try {
-			CastFastEmail.sendEmail(showData.get(2), "Show successfully uploaded", uploadedFile.toString());
-		} catch (MessagingException e) {
-			e.printStackTrace();
+			CastFastShow showData = CastFastYAML.readShow(showSelected);
+			String newFile = CastFastMP3.updateFile(currentPath, dateChosen, showData);
+			URL uploadedFile = CastFastS3.uploadFile(showSelected, newFile);
+			for (String i : showData.getEmail()) {
+				CastFastEmail.sendEmail(i, "Show successfully uploaded", uploadedFile.toString());
+			}
+			outputMessage("Show successfully uploaded! Please check your email for a link to the show.", AlertType.INFORMATION);
+		} catch (Exception error) {
+			error.printStackTrace();
+			outputMessage(error.getMessage(), AlertType.ERROR);
 		}
 	}
 	
 	@FXML
 	public void refresh() {
-		showList = sqlFile.getNames();
+		showList = CastFastFile.getShowNames();
 		Collections.sort(showList);
 		showSelector.getItems().clear();
 		showSelector.getItems().addAll(showList);
-		CastFastFile.checkDir(showList);
+		CastFastFile.checkPodcastDir(showList);
+	}
+	
+	public void outputMessage(String message, AlertType alertType) {
+		Alert alert = new Alert(alertType, message);
+		alert.showAndWait();
 	}
 }

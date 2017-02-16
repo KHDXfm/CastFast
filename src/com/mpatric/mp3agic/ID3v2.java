@@ -85,6 +85,7 @@ public interface ID3v2 extends ID3v1 {
 	
 	byte[] getAlbumImage();
 	void setAlbumImage(byte[] albumImage, String mimeType);
+	void setAlbumImage(byte[] albumImage, String mimeType, byte imageType, String imageDescription);
 	void clearAlbumImage();
 	String getAlbumImageMimeType();
 	
@@ -93,7 +94,10 @@ public interface ID3v2 extends ID3v1 {
 	
 	String getItunesComment();
 	void setItunesComment(String itunesComment);
-	
+
+	String getLyrics();
+	void setLyrics(String lyrics);
+
 	/**
 	 * Set genre from text.
 	 * This method behaves different depending on the ID3 version.

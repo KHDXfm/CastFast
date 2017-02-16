@@ -54,7 +54,7 @@ public class CastFastOptionsController {
 			options.close();
 			try {
 				Stage stage = (Stage)saveButton.getScene().getWindow();
-			    stage.close();
+				stage.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
