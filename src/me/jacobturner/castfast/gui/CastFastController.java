@@ -114,9 +114,7 @@ public class CastFastController {
 			CastFastShow showData = CastFastYAML.readShow(showSelected);
 			String newFile = CastFastMP3.updateFile(currentPath, dateChosen, showData);
 			URL uploadedFile = CastFastS3.uploadFile(showSelected, newFile);
-			for (String i : showData.getEmail()) {
-				CastFastEmail.sendEmail(i, "Show successfully uploaded", uploadedFile.toString());
-			}
+			CastFastEmail.sendEmail(showData.getEmail(), "Show successfully uploaded", uploadedFile.toString(), showSelected);
 			outputMessage("Show successfully uploaded! Please check your email for a link to the show.", AlertType.INFORMATION);
 		} catch (Exception error) {
 			error.printStackTrace();

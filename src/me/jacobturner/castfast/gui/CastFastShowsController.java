@@ -106,6 +106,7 @@ public class CastFastShowsController {
 					djs.getText().split(", "), djEmails.getText().split(", "),
 					airs.getText());
 			showSelector.getItems().add(showName.getText());
+			refresh();
 			showSelector.getSelectionModel().select(showName.getText());
 		} catch (Exception error) {
 			error.printStackTrace();
@@ -136,7 +137,7 @@ public class CastFastShowsController {
 			CastFastYAML.editShow(oldShow, showName.getText(),
 					djs.getText().split(", "), djEmails.getText().split(", "),
 					airs.getText());
-			showSelector.getItems().add(showName.getText());
+			refresh();
 			showSelector.getSelectionModel().select(showName.getText());
 		} catch (Exception error) {
 			error.printStackTrace();
@@ -147,5 +148,13 @@ public class CastFastShowsController {
 	public void outputMessage(String message, AlertType alertType) {
 		Alert alert = new Alert(alertType, message);
 		alert.showAndWait();
+	}
+	
+	private void refresh() {
+		showSelector.getItems().clear();
+		showList = CastFastFile.getShowNames();
+		Collections.sort(showList);
+		showSelector.getItems().add("<new show>");
+		showSelector.getItems().addAll(showList);
 	}
 }

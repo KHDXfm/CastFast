@@ -14,6 +14,8 @@ import com.mpatric.mp3agic.NotSupportedException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class CastFastMP3 {
+	private static CastFastOptions options = new CastFastOptions();
+	
 	public static String updateFile(String path, String date, CastFastShow showData) throws UnsupportedTagException, InvalidDataException, IOException, NotSupportedException {
 		Mp3File mp3File = null;
  		mp3File = new Mp3File(path);
@@ -30,11 +32,10 @@ public class CastFastMP3 {
  		id3v2Tag = new ID3v24Tag();
  		mp3File.setId3v2Tag(id3v2Tag);
 		id3v2Tag.setArtist(CastFastShowHelper.arrayToString(showData.getDJ()));
-		id3v2Tag.setComment(showData.getName() + ", broadcast " + showData.getAirs() + " on KHDX-FM 93.1, Conway, AR - khdx.fm");
+		id3v2Tag.setComment(showData.getName() + ", broadcast " + showData.getAirs() + " on " + options.getValue("station_name"));
 		id3v2Tag.setTitle(date);
 		id3v2Tag.setAlbum(showData.getName());
 		id3v2Tag.setYear(date.substring(0, 4));
-		id3v2Tag.setUrl("http://khdx.fm");
 		File f = new File("./cover.jpg");
 		if (f.exists() && !f.isDirectory()) { 
 			RandomAccessFile file = new RandomAccessFile("./cover.jpg", "r");

@@ -2,6 +2,11 @@ package me.jacobturner.castfast;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class CastFastFile {
@@ -45,5 +50,18 @@ public class CastFastFile {
 	public static void deleteShow(String show) {
 		File oldShow = new File("./Shows/" + show + ".yml");
 		oldShow.delete();
+	}
+	
+	public static String readEmailTemplate() throws IOException {
+		byte[] encoded;
+		try {
+			encoded = Files.readAllBytes(Paths.get("./emailtemplate.html"));
+		} catch(IOException noTemplateError) {
+			PrintWriter writer = new PrintWriter("./emailtemplate.html", "UTF-8");
+			writer.println("Your podcast for {{SHOWNAME}} has successfully uploaded and is now available at the following link:<br /><a href='{{LINK}}'>{{LINK}}</a>");
+			writer.close();
+			encoded = Files.readAllBytes(Paths.get("./emailtemplate.html"));
+		}
+		return new String(encoded, Charset.defaultCharset());
 	}
 }

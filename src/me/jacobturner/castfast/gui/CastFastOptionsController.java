@@ -10,6 +10,8 @@ import me.jacobturner.castfast.CastFastOptions;
 
 public class CastFastOptionsController {
 	@FXML
+	private TextField stationName;
+	@FXML
 	private TextField accessKey;
 	@FXML
 	private PasswordField secretKey;
@@ -32,6 +34,7 @@ public class CastFastOptionsController {
 	
 	public void initialize() {
 		CastFastOptions options = new CastFastOptions();
+		stationName.setText(options.getValue("station_name"));
 		accessKey.setText(options.getValue("access_key"));
 		secretKey.setText(options.getValue("secret_key"));
 		bucketName.setText(options.getValue("bucket_name"));
@@ -42,6 +45,7 @@ public class CastFastOptionsController {
 		password.setText(options.getValue("password"));
 		useSSLTLS.setSelected(Boolean.valueOf(options.getValue("use_ssl_tls")));
 		saveButton.setOnAction(event -> {
+			options.setValue("station_name", stationName.getText());
 			options.setValue("access_key", accessKey.getText());
 			options.setValue("secret_key", secretKey.getText());
 			options.setValue("bucket_name", bucketName.getText());
