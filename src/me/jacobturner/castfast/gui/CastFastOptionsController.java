@@ -18,6 +18,8 @@ public class CastFastOptionsController {
 	@FXML
 	private TextField bucketName;
 	@FXML
+	private TextField regionName;
+	@FXML
 	private TextField smtpServer;
 	@FXML
 	private TextField portNumber;
@@ -38,6 +40,7 @@ public class CastFastOptionsController {
 		accessKey.setText(options.getValue("access_key"));
 		secretKey.setText(options.getValue("secret_key"));
 		bucketName.setText(options.getValue("bucket_name"));
+		regionName.setText(options.getValue("region_name"));
 		smtpServer.setText(options.getValue("smtp_server"));
 		portNumber.setText(options.getValue("port"));
 		emailAddress.setText(options.getValue("email_address"));
@@ -49,6 +52,7 @@ public class CastFastOptionsController {
 			options.setValue("access_key", accessKey.getText());
 			options.setValue("secret_key", secretKey.getText());
 			options.setValue("bucket_name", bucketName.getText());
+			options.setValue("region_name", regionName.getText());
 			options.setValue("smtp_server", smtpServer.getText());
 			options.setValue("port", portNumber.getText());
 			options.setValue("email_address", emailAddress.getText());

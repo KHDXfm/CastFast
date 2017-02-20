@@ -36,6 +36,15 @@
                   <Label text="Bucket Name" />
                   <TextField fx:id="bucketName" prefWidth="190.0" />
                </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Region Name" />
+                  <TextField fx:id="regionName" prefWidth="191.0" />
+               </children>
             </HBox>
             <Separator />
             <Label text="Mail Settings" />
