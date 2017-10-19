@@ -12,17 +12,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import me.jacobturner.castfast.CastFastEmail;
 import me.jacobturner.castfast.CastFastFile;
 import me.jacobturner.castfast.CastFastMP3;
+import me.jacobturner.castfast.CastFastOptions;
 import me.jacobturner.castfast.CastFastS3;
 import me.jacobturner.castfast.CastFastShow;
 import me.jacobturner.castfast.CastFastYAML;
@@ -47,6 +55,7 @@ public class CastFastController {
 	@FXML
 	private TextField filePath;
 
+	CastFastOptions options = new CastFastOptions();
 	private FileChooser fileBrowse = new FileChooser();
 	private String dateChosen = LocalDate.now().toString();
 	private ArrayList<String> showList;
@@ -75,18 +84,66 @@ public class CastFastController {
 			showSelected = showSelector.getValue();
 		});
 		optionsButton.setOnAction(event -> {
-			try {
-				Stage dialog = new Stage();
-				dialog.initModality(Modality.APPLICATION_MODAL);
-				dialog.initOwner(optionsButton.getScene().getWindow());
-				BorderPane aboutWindow = (BorderPane)FXMLLoader.load(getClass().getResource("CastFastOptionsGUI.fxml"));
-				Scene scene = new Scene(aboutWindow);
-				dialog.setScene(scene);
-				dialog.show();
-			} catch(Exception error) {
-				error.printStackTrace();
-				outputMessage(error.getMessage(), AlertType.ERROR);
-			}
+			Dialog<ButtonType> dialog = new Dialog<>();
+			dialog.setTitle("CastFast Options");
+			dialog.setHeaderText("CastFast Options");
+			ButtonType saveButtonType = new ButtonType("Save", ButtonData.OK_DONE);
+			dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+			GridPane grid = new GridPane();
+			grid.setHgap(10);
+			grid.setVgap(10);
+			TextField stationName = new TextField(options.getValue("station_name"));
+			TextField accessKey = new TextField(options.getValue("access_key"));
+			PasswordField secretKey = new PasswordField();
+			secretKey.setText(options.getValue("secret_key"));
+			TextField bucketName = new TextField(options.getValue("bucket_name"));
+			TextField regionName = new TextField(options.getValue("region_name"));
+			TextField smtpServer = new TextField(options.getValue("smtp_server"));
+			TextField port = new TextField(options.getValue("port"));
+			TextField emailAddress = new TextField(options.getValue("email_address"));
+			TextField username = new TextField(options.getValue("username"));
+			PasswordField password = new PasswordField();
+			password.setText(options.getValue("password"));
+			CheckBox useSSLTLS = new CheckBox();
+			useSSLTLS.setSelected(Boolean.valueOf(options.getValue("use_ssl_tls")));
+			grid.add(new Label("Station Name"), 0, 0);
+			grid.add(stationName, 1, 0);
+			grid.add(new Label("Access Key"), 0, 1);
+			grid.add(accessKey, 1, 1);
+			grid.add(new Label("Secret Key"), 0, 2);
+			grid.add(secretKey, 1, 2);
+			grid.add(new Label("Bucket Name"), 0, 3);
+			grid.add(bucketName, 1, 3);
+			grid.add(new Label("Region Name"), 0, 4);
+			grid.add(regionName, 1, 4);
+			grid.add(new Label("SMTP Server"), 0, 5);
+			grid.add(smtpServer, 1, 5);
+			grid.add(new Label("Port"), 0, 6);
+			grid.add(port, 1, 6);
+			grid.add(new Label("Email Address"), 0, 7);
+			grid.add(emailAddress, 1, 7);
+			grid.add(new Label("Username"), 0, 8);
+			grid.add(username, 1, 8);
+			grid.add(new Label("Password"), 0, 9);
+			grid.add(password, 1, 9);
+			grid.add(new Label("Use SSL/TLS"), 0, 10);
+			grid.add(useSSLTLS, 1, 10);
+			dialog.getDialogPane().setContent(grid);
+			dialog.showAndWait().ifPresent(result -> {
+				if (result == saveButtonType) {
+					options.setValue("station_name", stationName.getText());
+					options.setValue("access_key", accessKey.getText());
+					options.setValue("secret_key", secretKey.getText());
+					options.setValue("bucket_name", bucketName.getText());
+					options.setValue("region_name", regionName.getText());
+					options.setValue("smtp_server", smtpServer.getText());
+					options.setValue("port", port.getText());
+					options.setValue("email_address", emailAddress.getText());
+					options.setValue("username", username.getText());
+					options.setValue("password", password.getText());
+					options.setValue("use_ssl_tls", useSSLTLS.selectedProperty().getValue().toString());
+				}
+			});
 		});
 		showsButton.setOnAction(event -> {
 			try {
